@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import Temperature from './Components/Temperature';
+import ConversionLogic from './Components/ConversionLogic';
+import ResultDisplay from './Components/ResultDisplay';
 
 function App() {
- // const [convertedTemperature, setConvertedTemperature] = useState('');
+  const [convertedTemperature, setConvertedTemperature] = useState('');
+  const [temperature, setTemperature] = useState('');
+  const [unit, setUnit] = useState('celsius');
 
-  const handleConversion = (temperature, unit) => {
-    // Implement the conversion logic based on the selected unit
-    // Update 'convertedTemperature' state with the result
+  const handleConversion = (temp, selectedUnit) => {
+    let result = temp; 
+
+    setTemperature(temp);
+    setUnit(selectedUnit);
+    setConvertedTemperature(result);
   };
-
   return (
     <div className="App">
       <h1>Temperature Converter</h1>
-      <Temperature onConvert={handleConversion} />
+      <Temperature
+        onConvert={(temp, selectedUnit) => handleConversion(temp, selectedUnit)}
+      />
+      <ConversionLogic />
+      <ResultDisplay temperature={convertedTemperature} />
     </div>
   );
 }

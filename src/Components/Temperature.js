@@ -28,7 +28,8 @@ const Temperature = ({ onConvert }) => {
       <select value={unit} onChange={handleUnitChange}>
         <option value="celsius">Celsius</option>
         <option value="fahrenheit">Fahrenheit</option>
-        {/* Add more temperature units as needed */}
+        <option value="kelvin">Kelvin</option>
+        <option value="rankine">Rankine</option>
       </select>
       <button onClick={handleConvert}>Convert</button>
     </div>
