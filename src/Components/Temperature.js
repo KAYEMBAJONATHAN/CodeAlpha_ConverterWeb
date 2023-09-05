@@ -1,23 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTemperature, setUnit } from '../Redux/Slice/temperatureSlice';
 import '../Style/temperature.css';
 
-const Temperature = ({ onConvert }) => {
-  const [temperature, setTemperature] = useState('');
-  const [unit, setUnit] = useState('celsius');
+const Temperature = () => {
+  const temperature = useSelector((state) => state.temperature.temperature);
+  const unit = useSelector((state) => state.temperature.unit);
+  const dispatch = useDispatch();
 
   const handleTemperatureChange = (e) => {
-    setTemperature(e.target.value);
+    const newTemperature = e.target.value;
+    dispatch(setTemperature(newTemperature));
   };
 
   const handleUnitChange = (e) => {
-    setUnit(e.target.value);
+    const newUnit = e.target.value;
+    dispatch(setUnit(newUnit));
   };
 
   const handleConvert = () => {
-    onConvert(temperature, unit);
+      let convertedTemperature = temperature;
+    
+      if (unit === 'celsius') {
+        // Convert Celsius to Fahrenheit
+        convertedTemperature = (temperature * 9) / 5 + 32;
+      } else if (unit === 'fahrenheit') {
+        // Convert Fahrenheit to Celsius
+        convertedTemperature = ((temperature - 32) * 5) / 9;
+      }
+    
+      // Update the state with the converted temperature
+      dispatch(setTemperature(convertedTemperature));
   };
-
-  //console.log(temperature, unit)
 
   return (
     <div>
@@ -32,6 +46,7 @@ const Temperature = ({ onConvert }) => {
         <option value="fahrenheit">Fahrenheit</option>
         <option value="kelvin">Kelvin</option>
         <option value="rankine">Rankine</option>
+        {/* Add more temperature units as needed */}
       </select>
       <button onClick={handleConvert}>Convert</button>
     </div>
