@@ -17,6 +17,8 @@ const Temperature = ({ onConvert }) => {
     onConvert(temperature, unit);
   };
 
+  //console.log(temperature, unit)
+
   return (
     <div>
       <input
