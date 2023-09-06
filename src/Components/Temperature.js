@@ -19,18 +19,36 @@ const Temperature = () => {
   };
 
   const handleConvert = () => {
-      let convertedTemperature = temperature;
-    
-      if (unit === 'celsius') {
-        // Convert Celsius to Fahrenheit
-        convertedTemperature = (temperature * 9) / 5 + 32;
-      } else if (unit === 'fahrenheit') {
-        // Convert Fahrenheit to Celsius
-        convertedTemperature = ((temperature - 32) * 5) / 9;
-      }
-    
-      // Update the state with the converted temperature
-      dispatch(setTemperature(convertedTemperature));
+    let convertedTemperature = temperature;
+
+    switch (unit) {
+      case 'celsius':
+        convertedTemperature = {
+          celsius: temperature,
+          fahrenheit: (temperature * 9) / 5 + 32,
+          kelvin: temperature + 273.15,
+          rankine: (temperature + 273.15) * 9 / 5,
+          delisle: (100 - temperature) * 3 / 2,
+          réaumur: temperature * 4 / 5,
+          rømer: (temperature * 21 / 40) + 7.5,
+        };
+        break;
+      case 'fahrenheit':
+        convertedTemperature = {
+          celsius: ((temperature - 32) * 5) / 9,
+          fahrenheit: temperature,
+          kelvin: ((temperature - 32) * 5) / 9 + 273.15,
+          rankine: temperature + 459.67,
+          delisle: (212 - temperature) * 5 / 6,
+          réaumur: ((temperature - 32) * 4) / 9,
+          rømer: ((temperature - 32) * 7) / 24 + 7.5,
+        };
+        break;
+      default:
+        break;
+    }
+
+    console.log(convertedTemperature);
   };
 
   return (
@@ -46,7 +64,9 @@ const Temperature = () => {
         <option value="fahrenheit">Fahrenheit</option>
         <option value="kelvin">Kelvin</option>
         <option value="rankine">Rankine</option>
-        {/* Add more temperature units as needed */}
+        <option value="delisle">Delisle</option>
+        <option value="réaumur">Réaumur</option>
+        <option value="rømer">Rømer</option>
       </select>
       <button onClick={handleConvert}>Convert</button>
     </div>
