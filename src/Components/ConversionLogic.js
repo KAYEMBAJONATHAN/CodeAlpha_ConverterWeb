@@ -25,6 +25,8 @@ const ConversionLogic = ({ temperature, unit, onConversion }) => {
     onConversion(convertedTemperature);
   };
 
+  console.log(result)
+
   return (
     <div>
       <button onClick={handleConvert}>Convert</button>

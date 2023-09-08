@@ -20,37 +20,36 @@ const Temperature = () => {
 
   const handleConvert = () => {
     let convertedTemperature = temperature;
-
+  
     switch (unit) {
       case 'celsius':
-        convertedTemperature = {
-          celsius: temperature,
-          fahrenheit: (temperature * 9) / 5 + 32,
-          kelvin: temperature + 273.15,
-          rankine: (temperature + 273.15) * 9 / 5,
-          delisle: (100 - temperature) * 3 / 2,
-          réaumur: temperature * 4 / 5,
-          rømer: (temperature * 21 / 40) + 7.5,
-        };
+        convertedTemperature = (temperature * 9) / 5 + 32;
         break;
       case 'fahrenheit':
-        convertedTemperature = {
-          celsius: ((temperature - 32) * 5) / 9,
-          fahrenheit: temperature,
-          kelvin: ((temperature - 32) * 5) / 9 + 273.15,
-          rankine: temperature + 459.67,
-          delisle: (212 - temperature) * 5 / 6,
-          réaumur: ((temperature - 32) * 4) / 9,
-          rømer: ((temperature - 32) * 7) / 24 + 7.5,
-        };
+        convertedTemperature = ((temperature - 32) * 5) / 9;
+        break;
+      case 'kelvin':
+        convertedTemperature = temperature - 273.15;
+        break;
+      case 'rankine':
+        convertedTemperature = ((temperature - 491.67) * 5) / 9;
+        break;
+      case 'delisle':
+        convertedTemperature = 100 - (temperature * 2) / 3;
+        break;
+      case 'réaumur':
+        convertedTemperature = (temperature * 5) / 4;
+        break;
+      case 'rømer':
+        convertedTemperature = ((temperature - 7.5) * 40) / 21;
         break;
       default:
         break;
     }
-
+  
     console.log(convertedTemperature);
   };
-
+  
   return (
     <div>
       <input
